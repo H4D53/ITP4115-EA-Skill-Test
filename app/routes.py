@@ -29,8 +29,6 @@ def index():
         }
     ]
     return render_template('index.html', title='Home', posts=posts)
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -48,19 +46,16 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
-
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for(''))
-
-
+    return redirect(url_for('index'))
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
-    if form.vaildate_on_submit():
+    if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
@@ -94,5 +89,4 @@ def edit_profile():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
+    return render_template('edit_profile.html', title='Edit Profile',form=form)
