@@ -1,0 +1,7 @@
+Flask-Login==0.4.1
+SQLAlchemy==1.2.8
+Flask_sqlalchemy
+flask_migrate
+flask_wtf
+email_validator
+sqlite_web
